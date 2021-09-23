@@ -6,9 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "ttr_courses")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +23,8 @@ public class Course {
     private LocalDateTime periodStart;
     @Column(nullable = false)
     private LocalDateTime periodEnd;
-//    @Column(nullable = false)
-//    private Duration duration;
-//    @Column(nullable = false)
-//    private DayOfWeek day;
-//    @Column(nullable = false)
-//    private Time lessonStart;
-    @OneToMany
+    @OneToMany(mappedBy = "course")
     private List<Lesson> lessons;
+    @ManyToOne
+    private Group group;
 }

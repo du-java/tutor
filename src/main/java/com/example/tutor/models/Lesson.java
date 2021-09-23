@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "ttr_lessons")
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +23,8 @@ public class Lesson {
     private LocalDateTime start;
     @Column(nullable = false)
     private Duration duration;
+    @ManyToOne
+    private Course course;
+    @ManyToOne
+    private Student student;
 }

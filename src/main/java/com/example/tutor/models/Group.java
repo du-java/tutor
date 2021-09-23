@@ -13,15 +13,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Groups")
+@Table(name = "ttr_groups")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String groupName;
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     private List<Student> students;
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     private List<Course> courses;
+    @ManyToOne
+    private Tutor tutor;
 }

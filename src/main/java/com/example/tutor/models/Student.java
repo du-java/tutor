@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "ttr_students")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Student extends User {
 
@@ -25,6 +26,6 @@ public class Student extends User {
     private Group group;
     @Column(nullable = false)
     private BigDecimal price;
-    @OneToMany
+    @OneToMany(mappedBy = "student")
     private List<Lesson> visitedLessons;
 }

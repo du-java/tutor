@@ -13,12 +13,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "ttr_tutors")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Tutor extends User {
     @Column(nullable = false)
     private String firstname;
     @Column(nullable = false)
     private String lastname;
-    @OneToMany
+    @OneToMany(mappedBy = "tutor")
     private List<Group> group;
 }

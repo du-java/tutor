@@ -9,10 +9,12 @@ spring:
   jpa:
     show-sql: true
     open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         #        format_sql: true
-        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+        dialect: ${spring.jpa.database-platform}
+        storage_engine: innodb
         default_schema: ${db-schema-name}
     hibernate:
       ddl-auto: create
@@ -21,5 +23,5 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tutor_db
     username: root
-    password: pass
+    password: 1234
 
