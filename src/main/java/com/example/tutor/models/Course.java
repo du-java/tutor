@@ -23,8 +23,10 @@ public class Course {
     private LocalDateTime periodStart;
     @Column(nullable = false)
     private LocalDateTime periodEnd;
+
     @OneToMany(mappedBy = "course")
     private List<Lesson> lessons;
     @ManyToOne
+    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_courses_group_fk"))
     private Group group;
 }

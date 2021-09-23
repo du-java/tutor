@@ -22,10 +22,14 @@ public class Student extends User {
     private String firstname;
     @Column(nullable = false)
     private String lastname;
+
     @ManyToOne
+    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_students_group_fk"))
     private Group group;
+
     @Column(nullable = false)
     private BigDecimal price;
-    @OneToMany(mappedBy = "student")
+
+    @ManyToMany(mappedBy = "students")
     private List<Lesson> visitedLessons;
 }

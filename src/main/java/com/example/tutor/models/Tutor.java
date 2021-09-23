@@ -20,6 +20,7 @@ public class Tutor extends User {
     private String firstname;
     @Column(nullable = false)
     private String lastname;
+
     @OneToMany(mappedBy = "tutor")
     private List<Group> group;
 }

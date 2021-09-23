@@ -20,10 +20,14 @@ public class Group {
     private Long id;
     @Column(nullable = false)
     private String groupName;
+
     @OneToMany(mappedBy = "group")
     private List<Student> students;
+
     @OneToMany(mappedBy = "group")
     private List<Course> courses;
+
     @ManyToOne
+    @JoinColumn(name = "tutor_id", foreignKey = @ForeignKey(name = "ttr_groups_tutor_fk"))
     private Tutor tutor;
 }
