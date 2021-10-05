@@ -1,6 +1,5 @@
 package com.example.tutor.services;
 
-import com.example.tutor.dto.StudentDto;
 import com.example.tutor.exeptions.NotFoundExeption;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Student;
@@ -13,8 +12,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class StudentService {
-    private final StudentRepository studentRepository;
 
+    private final StudentRepository studentRepository;
 
     public Student findById(Long id) {
 
@@ -38,7 +37,6 @@ public class StudentService {
 
     public Student getById(Long id) {
         return studentRepository.findById(id).orElseThrow(() -> new NotFoundExeption(id, "student"));
-
     }
 
     public Student save(Student student) {

@@ -6,8 +6,8 @@ import lombok.Value;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Builder
 @Value
+@Builder
 public class StudentDto implements Dto {
     Long id;
     String lastname;

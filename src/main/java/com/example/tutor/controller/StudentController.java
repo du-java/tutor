@@ -11,31 +11,36 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("/students")
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/students")
 public class StudentController {
+
     private final StudentFacade studentFacade;
-    
+
     @PostMapping
-    public ResponseEntity<StudentDto> create(@Valid @RequestBody StudentDto studentDto){
+    public ResponseEntity<StudentDto> create(@Valid @RequestBody StudentDto studentDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(studentFacade.create(studentDto));
     }
+
     @GetMapping
-    public ResponseEntity<List<StudentDto>> findAll(){
+    public ResponseEntity<List<StudentDto>> findAll() {
         return ResponseEntity.ok(studentFacade.findAll());
-    } 
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDto> findById(@PathVariable Long id){
+    public ResponseEntity<StudentDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(studentFacade.findById(id));
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         studentFacade.deleteById(id);
         return ResponseEntity.accepted().build();
     }
+
     @PutMapping
-    public ResponseEntity<StudentDto> update(@Valid @RequestBody StudentDto studentDto){
+    public ResponseEntity<StudentDto> update(@Valid @RequestBody StudentDto studentDto) {
         return ResponseEntity.accepted().body(studentFacade.update(studentDto));
     }
 }

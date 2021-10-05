@@ -16,22 +16,22 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CourseFacade {
+
     private final CourseService courseService;
     private final CourseConverter courseConverter;
     private final GroupService groupService;
     private final LessonService lessonService;
 
-    public Course create(CreateCourseRequest createCourseRequest) {
+    public CourseDto create(CreateCourseRequest createCourseRequest) {
         Course course = Course.builder()
                 .periodStart(createCourseRequest.getStart())
                 .periodEnd(createCourseRequest.getEnd())
                 .group(groupService.findById(createCourseRequest.getGroupId()))
                 .lessons(lessonService.createLessons(createCourseRequest))
                 .build();
-        courseService.save(course);
-        return Course.builder().build();
+        final Course saved = courseService.save(course);
+        return courseConverter.convert(saved);
     }
-
 
     public List<CourseDto> findAll() {
         return courseService.findAll().stream()
@@ -48,6 +48,6 @@ public class CourseFacade {
     }
 
     public CourseDto update(CourseDto courseDto) {
-      return courseConverter.convert( courseService.save(courseConverter.convert(courseDto))) ;
+        return courseConverter.convert(courseService.save(courseConverter.convert(courseDto)));
     }
 }

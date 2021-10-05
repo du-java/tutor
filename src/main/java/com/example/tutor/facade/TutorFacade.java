@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TutorFacade {
+
     private final TutorService tutorService;
     private final TutorConverter tutorConverter;
 
     public TutorDto create(TutorDto tutorDto) {
-       return tutorConverter.convert(tutorService.save(tutorConverter.convert(tutorDto)));
-
+        return tutorConverter.convert(tutorService.save(tutorConverter.convert(tutorDto)));
     }
 
     public List<TutorDto> findAll() {
@@ -27,7 +27,7 @@ public class TutorFacade {
     }
 
     public TutorDto findById(Long id) {
-       return tutorConverter.convert(tutorService.findById(id));
+        return tutorConverter.convert(tutorService.findById(id));
     }
 
     public void deleteById(Long id) {

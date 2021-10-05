@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class GroupFacade {
+
     private final GroupService groupService;
     private final GroupConverter groupConverter;
 
@@ -20,7 +21,7 @@ public class GroupFacade {
     }
 
     public List<GroupDto> findAll() {
-       return groupService.findAll().stream()
+        return groupService.findAll().stream()
                 .map(groupConverter::convert)
                 .collect(Collectors.toList());
     }
@@ -34,6 +35,6 @@ public class GroupFacade {
     }
 
     public GroupDto update(GroupDto groupDto) {
-       return groupConverter.convert(groupService.save(groupConverter.convert(groupDto)));
+        return groupConverter.convert(groupService.save(groupConverter.convert(groupDto)));
     }
 }

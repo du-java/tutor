@@ -8,13 +8,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Builder
 @Value
+@Builder
 public class LessonDto implements Dto {
     Long id;
     LocalDateTime start;
     Duration duration;
     Course course;
     List<Long> students;
-
 }

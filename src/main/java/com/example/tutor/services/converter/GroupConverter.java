@@ -26,10 +26,12 @@ public class GroupConverter implements Converter<Group, GroupDto> {
                 .tutor(tutorService.findById(groupDto.getTutor()))
                 .students(groupDto.getStudents().stream()
                         .map(studentService::findById)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .courses(groupDto.getCourses().stream()
                         .map(courseService::findById)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
     }
 
@@ -40,10 +42,12 @@ public class GroupConverter implements Converter<Group, GroupDto> {
                 .tutor(group.getTutor().getId())
                 .students(group.getStudents().stream()
                         .map(Student::getId)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .courses(group.getCourses().stream()
                         .map(Course::getId)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
     }
 }

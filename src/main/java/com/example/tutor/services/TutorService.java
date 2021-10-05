@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TutorService {
+
     private final TutorRepository tutorRepository;
 
     public Tutor findById(Long id) {
@@ -20,7 +21,8 @@ public class TutorService {
     public Tutor save(Tutor tutor) {
         return tutorRepository.save(tutor);
     }
-    public List<Tutor> findAll(){
+
+    public List<Tutor> findAll() {
         return tutorRepository.findAll();
     }
 

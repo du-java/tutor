@@ -27,10 +27,9 @@ public class StudentConverter implements Converter<Student, StudentDto> {
                 .price(studentDto.getPrice())
                 .visitedLessons(studentDto.getVisitedLessons().stream()
                         .map(lessonService::findById)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
-
-
     }
 
     @Override
@@ -43,8 +42,8 @@ public class StudentConverter implements Converter<Student, StudentDto> {
                 .price(student.getPrice())
                 .visitedLessons(student.getVisitedLessons().stream()
                         .map(Lesson::getId)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
-
     }
 }

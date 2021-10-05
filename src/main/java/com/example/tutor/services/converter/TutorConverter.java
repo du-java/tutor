@@ -3,7 +3,6 @@ package com.example.tutor.services.converter;
 import com.example.tutor.dto.TutorDto;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Tutor;
-import com.example.tutor.models.Lesson;
 import com.example.tutor.services.GroupService;
 import com.example.tutor.services.LessonService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TutorConverter implements Converter<Tutor, TutorDto> {
 
-    private final LessonService lessonService;
     private final GroupService groupService;
 
     @Override
@@ -26,10 +24,9 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
                 .lastname(tutorDto.getLastname())
                 .group(tutorDto.getGroup().stream()
                         .map(groupService::findById)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
-
-
     }
 
     @Override
@@ -40,8 +37,8 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
                 .lastname(tutor.getLastname())
                 .group(tutor.getGroup().stream()
                         .map(Group::getId)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
-
     }
 }

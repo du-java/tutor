@@ -7,8 +7,8 @@ import lombok.Value;
 import java.time.LocalDate;
 import java.util.List;
 
-@Builder
 @Value
+@Builder
 public class CourseDto implements Dto {
     Long id;
     LocalDate periodStart;

@@ -1,15 +1,9 @@
 package com.example.tutor.services.converter;
 
 import com.example.tutor.dto.CourseDto;
-import com.example.tutor.dto.GroupDto;
 import com.example.tutor.models.Course;
-import com.example.tutor.models.Group;
 import com.example.tutor.models.Lesson;
-import com.example.tutor.models.Student;
-import com.example.tutor.services.CourseService;
 import com.example.tutor.services.LessonService;
-import com.example.tutor.services.StudentService;
-import com.example.tutor.services.TutorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -30,10 +24,9 @@ public class CourseConverter implements Converter<Course, CourseDto> {
                 .periodEnd(courseDto.getPeriodEnd())
                 .lessons(courseDto.getLessons().stream()
                         .map(lessonService::findById)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
-
-
     }
 
     @Override
@@ -45,8 +38,8 @@ public class CourseConverter implements Converter<Course, CourseDto> {
                 .periodEnd(course.getPeriodEnd())
                 .lessons(course.getLessons().stream()
                         .map(Lesson::getId)
-                .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                )
                 .build();
-
     }
 }

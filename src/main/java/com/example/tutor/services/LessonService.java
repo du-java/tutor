@@ -18,9 +18,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class LessonService {
-    private final LessonRepository lessonRepository;
-    private final StudentService studentService;
 
+    private final LessonRepository lessonRepository;
 
     public List<Lesson> findAll() {
         return lessonRepository.findAll();
@@ -42,7 +41,6 @@ public class LessonService {
         LocalDate startDay = findStartDay(createCourseRequest.getStart(), createCourseRequest.getDayOfWeek());
         LocalDate lessonDay = startDay;
         List<Lesson> lessons = new ArrayList<>();
-
 
         while (lessonDay.isBefore(createCourseRequest.getEnd())) {
             Lesson lesson = Lesson.builder()

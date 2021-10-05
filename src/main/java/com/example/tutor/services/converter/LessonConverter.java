@@ -3,7 +3,6 @@ package com.example.tutor.services.converter;
 import com.example.tutor.dto.LessonDto;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
-import com.example.tutor.services.LessonService;
 import com.example.tutor.services.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,21 +22,21 @@ public class LessonConverter implements Converter<Lesson, LessonDto> {
                 .start(lessonDto.getStart())
                 .duration(lessonDto.getDuration())
                 .students(lessonDto.getStudents().stream()
-                .map(studentService::findById)
-                .collect(Collectors.toList()))
+                        .map(studentService::findById)
+                        .collect(Collectors.toList()))
                 .build();
-
     }
 
     @Override
     public LessonDto convert(Lesson lesson) {
         return LessonDto.builder()
-               .id(lesson.getId())
+                .id(lesson.getId())
                 .start(lesson.getStart())
                 .duration(lesson.getDuration())
                 .students(lesson.getStudents().stream()
-                .map(Student::getId)
-                .collect(Collectors.toList()))
+                        .map(Student::getId)
+                        .collect(Collectors.toList())
+                )
                 .build();
 
     }
