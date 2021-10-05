@@ -17,11 +17,11 @@ spring:
         storage_engine: innodb
         default_schema: ${db-schema-name}
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tutor_db
     username: root
-    password: 1234
+    password: pass
 

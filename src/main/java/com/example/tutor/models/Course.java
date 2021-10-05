@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -15,14 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ttr_courses")
-public class Course {
+public class Course implements Model{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private LocalDateTime periodStart;
+    private LocalDate periodStart;
     @Column(nullable = false)
-    private LocalDateTime periodEnd;
+    private LocalDate periodEnd;
 
     @OneToMany(mappedBy = "course")
     private List<Lesson> lessons;
