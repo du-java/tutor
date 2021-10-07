@@ -1,16 +1,18 @@
 package com.example.tutor.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Entity
+@ToString
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,13 +26,13 @@ public class Student extends User {
     private String lastname;
 
     @ManyToOne
-    //@JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_students_group_fk"))
+    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_students_group_fk"))
     private Group group;
 
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToMany(/*mappedBy = "student",*/ cascade = {
+    @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
@@ -39,5 +41,6 @@ public class Student extends User {
             joinColumns = {@JoinColumn(name = "student_id")},
             inverseJoinColumns = {@JoinColumn(name = "lesson_id")}
     )
+    @ToString.Exclude
     private List<Lesson> visitedLessons;
 }

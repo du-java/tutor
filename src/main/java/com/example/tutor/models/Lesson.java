@@ -1,18 +1,19 @@
 package com.example.tutor.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ttr_lessons")
@@ -33,5 +34,19 @@ public class Lesson implements Model {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
+    @ToString.Exclude
     private List<Student> students;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Lesson lesson = (Lesson) o;
+        return id != null && Objects.equals(id, lesson.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }
