@@ -16,7 +16,7 @@ public class StudentService {
     private final StudentRepository studentRepository;
 
     public Student findById(Long id) {
-
+return studentRepository.findById(id).orElseThrow(()->new NotFoundExeption(id,"student"));
     }
 
     public List<Student> findAll() {

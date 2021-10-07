@@ -39,12 +39,11 @@ public class LessonService {
 
     public List<Lesson> createLessons(CreateCourseRequest createCourseRequest) {
         LocalDate startDay = findStartDay(createCourseRequest.getStart(), createCourseRequest.getDayOfWeek());
-        LocalDate lessonDay = startDay;
         List<Lesson> lessons = new ArrayList<>();
 
-        while (lessonDay.isBefore(createCourseRequest.getEnd())) {
+        while (startDay.isBefore(createCourseRequest.getEnd())) {
             Lesson lesson = Lesson.builder()
-                    .start(LocalDateTime.of(lessonDay, createCourseRequest.getLessonStartTime()))
+                    .start(LocalDateTime.of(startDay, createCourseRequest.getLessonStartTime()))
                     .duration(Duration.ofMinutes(createCourseRequest.getLessonDuration()))
                     .build();
             lessons.add(lesson);

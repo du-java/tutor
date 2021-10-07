@@ -38,7 +38,7 @@ public class StudentConverter implements Converter<Student, StudentDto> {
                 .id(student.getId())
                 .firstname(student.getFirstname())
                 .lastname(student.getLastname())
-                .group(student.getGroup().getId())
+                .groupId(student.getGroup().getId())
                 .price(student.getPrice())
                 .visitedLessons(student.getVisitedLessons().stream()
                         .map(Lesson::getId)

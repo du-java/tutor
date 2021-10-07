@@ -4,7 +4,6 @@ import com.example.tutor.dto.TutorDto;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Tutor;
 import com.example.tutor.services.GroupService;
-import com.example.tutor.services.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,7 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
                 .id(tutorDto.getId())
                 .firstname(tutorDto.getFirstname())
                 .lastname(tutorDto.getLastname())
-                .group(tutorDto.getGroup().stream()
+                .group(tutorDto.getGroupId().stream()
                         .map(groupService::findById)
                         .collect(Collectors.toList())
                 )
@@ -35,7 +34,7 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
                 .id(tutor.getId())
                 .firstname(tutor.getFirstname())
                 .lastname(tutor.getLastname())
-                .group(tutor.getGroup().stream()
+                .groupId(tutor.getGroup().stream()
                         .map(Group::getId)
                         .collect(Collectors.toList())
                 )

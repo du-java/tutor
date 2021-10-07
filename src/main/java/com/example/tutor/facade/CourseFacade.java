@@ -29,6 +29,7 @@ public class CourseFacade {
                 .group(groupService.findById(createCourseRequest.getGroupId()))
                 .lessons(lessonService.createLessons(createCourseRequest))
                 .build();
+
         final Course saved = courseService.save(course);
         return courseConverter.convert(saved);
     }
