@@ -3,11 +3,8 @@ db-schema-name: tutor_db
 spring:
   liquibase:
     enabled: false
-    change-log: db/changelog/changelog.yaml
-    default-schema: ${db-schema-name}
-
   jpa:
-    show-sql: false
+    show-sql: true
     open-in-view: false
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
@@ -18,10 +15,5 @@ spring:
         default_schema: ${db-schema-name}
     hibernate:
       ddl-auto: validate
-
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/tutor_db
-    username: root
-    password: pass
-
+    password: 1234

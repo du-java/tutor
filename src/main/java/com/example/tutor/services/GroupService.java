@@ -1,14 +1,16 @@
 package com.example.tutor.services;
 
-import com.example.tutor.exeptions.NotFoundExeption;
+import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Group;
 import com.example.tutor.repositories.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class GroupService {
 
@@ -19,7 +21,7 @@ public class GroupService {
     }
 
     public Group findById(Long id) {
-        return groupRepository.findById(id).orElseThrow(() -> new NotFoundExeption(id, "group"));
+        return groupRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "group"));
     }
 
     public void deleteById(Long id) {

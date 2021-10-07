@@ -1,5 +1,6 @@
 package com.example.tutor.controller;
 
+import com.example.tutor.dto.CreateGroupRequest;
 import com.example.tutor.dto.GroupDto;
 import com.example.tutor.facade.GroupFacade;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class GroupController {
     private final GroupFacade groupFacade;
 
     @PostMapping
-    public ResponseEntity<GroupDto> create(@Valid @RequestBody GroupDto groupDto) {
+    public ResponseEntity<GroupDto> create(@Valid @RequestBody CreateGroupRequest groupDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(groupFacade.create(groupDto));
     }
 

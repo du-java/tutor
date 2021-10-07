@@ -1,12 +1,13 @@
 package com.example.tutor.services;
 
 import com.example.tutor.dto.CreateCourseRequest;
-import com.example.tutor.exeptions.NotFoundExeption;
+import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.repositories.LessonRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -14,11 +15,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class LessonService {
 
+    private static final int ONE_A_WEEK = 7;
     private final LessonRepository lessonRepository;
 
     public List<Lesson> findAll() {
@@ -26,7 +30,7 @@ public class LessonService {
     }
 
     public Lesson findById(Long id) {
-        return lessonRepository.findById(id).orElseThrow(() -> new NotFoundExeption(id, "lesson"));
+        return lessonRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "lesson"));
     }
 
     public void deleteById(Long id) {
@@ -37,22 +41,24 @@ public class LessonService {
         return lessonRepository.save(lesson);
     }
 
-    public List<Lesson> createLessons(CreateCourseRequest createCourseRequest) {
-        LocalDate startDay = findStartDay(createCourseRequest.getStart(), createCourseRequest.getDayOfWeek());
-        List<Lesson> lessons = new ArrayList<>();
+    public List<Lesson> createLessons(CreateCourseRequest createCourseRequest/*, Course course*/) {
+        final DayOfWeek dayOfWeek = DayOfWeek.valueOf(createCourseRequest.getDayOfWeek().toUpperCase(Locale.ROOT));
+        LocalDate startDay = findStartDay(createCourseRequest.getStart(), dayOfWeek);
+        final List<Lesson> lessons = new ArrayList<>();
 
         while (startDay.isBefore(createCourseRequest.getEnd())) {
-            Lesson lesson = Lesson.builder()
+            final Lesson lesson = Lesson.builder()
                     .start(LocalDateTime.of(startDay, createCourseRequest.getLessonStartTime()))
                     .duration(Duration.ofMinutes(createCourseRequest.getLessonDuration()))
                     .build();
             lessons.add(lesson);
+            startDay = startDay.plusDays(ONE_A_WEEK);
         }
         return lessons;
     }
 
     private LocalDate findStartDay(@NonNull LocalDate localDate, DayOfWeek dayOfWeek) {
-        while (localDate.getDayOfWeek().equals(dayOfWeek)) {
+        while (!localDate.getDayOfWeek().equals(dayOfWeek)) {
             localDate = localDate.plusDays(1);
         }
         return localDate;

@@ -11,17 +11,10 @@ import java.util.List;
 
 @Value
 @Builder
-public class GroupDto implements Dto {
-    @NotNull
-    @Positive
-    Long id;
+public class CreateGroupRequest implements Dto {
     @NotBlank
     @Size(min = 3, max = 100)
     String groupName;
-    @NotNull
-    List<Long> students;
-    @NotNull
-    List<Long> courses;
     @NotNull
     @Positive
     Long tutorId;

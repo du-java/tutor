@@ -24,10 +24,10 @@ public class Group implements Model {
     @OneToMany(mappedBy = "group")
     private List<Student> students;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> courses;
 
     @ManyToOne
-    @JoinColumn(name = "tutor_id", foreignKey = @ForeignKey(name = "ttr_groups_tutor_fk"))
+    @JoinColumn(name = "tutor_id", foreignKey = @ForeignKey(name = "ttr_groups_tutor_fk"), nullable = false)
     private Tutor tutor;
 }

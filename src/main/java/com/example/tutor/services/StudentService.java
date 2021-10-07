@@ -1,6 +1,6 @@
 package com.example.tutor.services;
 
-import com.example.tutor.exeptions.NotFoundExeption;
+import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Student;
 import com.example.tutor.repositories.StudentRepository;
@@ -16,7 +16,7 @@ public class StudentService {
     private final StudentRepository studentRepository;
 
     public Student findById(Long id) {
-return studentRepository.findById(id).orElseThrow(()->new NotFoundExeption(id,"student"));
+return studentRepository.findById(id).orElseThrow(()->new NotFoundException(id,"student"));
     }
 
     public List<Student> findAll() {
@@ -36,7 +36,7 @@ return studentRepository.findById(id).orElseThrow(()->new NotFoundExeption(id,"s
     }
 
     public Student getById(Long id) {
-        return studentRepository.findById(id).orElseThrow(() -> new NotFoundExeption(id, "student"));
+        return studentRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "student"));
     }
 
     public Student save(Student student) {

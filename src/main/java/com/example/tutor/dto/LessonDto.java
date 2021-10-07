@@ -20,6 +20,8 @@ public class LessonDto implements Dto {
     LocalDateTime start;
     @NotNull
     Duration duration;
-    Course course;
+    @NotNull
+    @Positive
+    Long courseId;
     List<Long> students;
 }

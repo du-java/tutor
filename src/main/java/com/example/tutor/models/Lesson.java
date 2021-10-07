@@ -25,11 +25,13 @@ public class Lesson implements Model {
     @Column(nullable = false)
     private Duration duration;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id", foreignKey = @ForeignKey(name = "ttr_lessons_course_fk"))
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id", foreignKey = @ForeignKey(name = "ttr_lessons_course_fk"), nullable = false)
     private Course course;
 
-    @ManyToMany
-    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "ttr_lessons_student_fk"))
+    @ManyToMany(mappedBy = "visitedLessons", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     private List<Student> students;
 }

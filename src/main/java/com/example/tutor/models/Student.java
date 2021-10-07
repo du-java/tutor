@@ -24,12 +24,20 @@ public class Student extends User {
     private String lastname;
 
     @ManyToOne
-    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_students_group_fk"))
+    //@JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_students_group_fk"))
     private Group group;
 
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(/*mappedBy = "student",*/ cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "ttr_student_lessons",
+            joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "lesson_id")}
+    )
     private List<Lesson> visitedLessons;
 }

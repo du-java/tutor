@@ -18,6 +18,9 @@ public class CourseDto implements Dto {
     LocalDate periodStart;
     @NotNull
     LocalDate periodEnd;
+    @NotNull
     List<Long> lessons;
+    @NotNull
+    @Positive
     Long groupId;
 }

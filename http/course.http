@@ -1,0 +1,19 @@
+### create course
+POST http://localhost:8080/courses
+Content-Type: application/json
+
+{
+  "start": "2021-09-01",
+  "end": "2021-12-31",
+  "lessonStartTime": "11:30:00",
+  "lessonDuration": 30,
+  "dayOfWeek": "monday",
+  "groupId": 1
+}
+
+###
+
+GET http://localhost:8080/courses/1
+Accept: application/json
+
+###

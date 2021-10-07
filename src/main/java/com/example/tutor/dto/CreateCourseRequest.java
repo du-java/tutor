@@ -3,17 +3,27 @@ package com.example.tutor.dto;
 import lombok.Builder;
 import lombok.Value;
 
-import java.time.DayOfWeek;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Value
 @Builder
 public class CreateCourseRequest implements Dto {
+    @NotNull
     LocalDate start;
+    @NotNull
     LocalDate end;
+    @NotNull
     LocalTime lessonStartTime;
+    @NotNull
+    @Positive
     Integer lessonDuration;
-    DayOfWeek dayOfWeek;
+    @NotBlank
+    String dayOfWeek;
+    @NotNull
+    @Positive
     Long groupId;
 }

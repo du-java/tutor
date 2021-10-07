@@ -4,32 +4,24 @@ import com.example.tutor.dto.CourseDto;
 import com.example.tutor.dto.CreateCourseRequest;
 import com.example.tutor.models.Course;
 import com.example.tutor.services.CourseService;
-import com.example.tutor.services.GroupService;
-import com.example.tutor.services.LessonService;
 import com.example.tutor.services.converter.CourseConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CourseFacade {
 
     private final CourseService courseService;
     private final CourseConverter courseConverter;
-    private final GroupService groupService;
-    private final LessonService lessonService;
 
     public CourseDto create(CreateCourseRequest createCourseRequest) {
-        Course course = Course.builder()
-                .periodStart(createCourseRequest.getStart())
-                .periodEnd(createCourseRequest.getEnd())
-                .group(groupService.findById(createCourseRequest.getGroupId()))
-                .lessons(lessonService.createLessons(createCourseRequest))
-                .build();
-
+        final Course course = courseConverter.convert(createCourseRequest);
         final Course saved = courseService.save(course);
         return courseConverter.convert(saved);
     }
@@ -49,6 +41,7 @@ public class CourseFacade {
     }
 
     public CourseDto update(CourseDto courseDto) {
+        // todo: if start and end changed remove or add lessons
         return courseConverter.convert(courseService.save(courseConverter.convert(courseDto)));
     }
 }

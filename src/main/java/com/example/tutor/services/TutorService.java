@@ -1,6 +1,6 @@
 package com.example.tutor.services;
 
-import com.example.tutor.exeptions.NotFoundExeption;
+import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Tutor;
 import com.example.tutor.repositories.TutorRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class TutorService {
     private final TutorRepository tutorRepository;
 
     public Tutor findById(Long id) {
-        return tutorRepository.findById(id).orElseThrow(() -> new NotFoundExeption(id, "tutor"));
+        return tutorRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "tutor"));
     }
 
     public Tutor save(Tutor tutor) {

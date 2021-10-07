@@ -21,6 +21,6 @@ public class Tutor extends User {
     @Column(nullable = false)
     private String lastname;
 
-    @OneToMany(mappedBy = "tutor")
-    private List<Group> group;
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Group> groups;
 }

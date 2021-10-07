@@ -1,6 +1,7 @@
 package com.example.tutor.services.converter;
 
 import com.example.tutor.dto.CourseDto;
+import com.example.tutor.dto.CreateCourseRequest;
 import com.example.tutor.models.Course;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.services.GroupService;
@@ -8,6 +9,7 @@ import com.example.tutor.services.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,6 +18,19 @@ public class CourseConverter implements Converter<Course, CourseDto> {
 
     private final LessonService lessonService;
     private final GroupService groupService;
+
+    public Course convert(CreateCourseRequest createCourseRequest) {
+        final Course course = Course.builder()
+                .periodStart(createCourseRequest.getStart())
+                .periodEnd(createCourseRequest.getEnd())
+                .group(groupService.findById(createCourseRequest.getGroupId()))
+                .build();
+        final List<Lesson> lessons = lessonService.createLessons(createCourseRequest).stream()
+                .peek(l -> l.setCourse(course))
+                .collect(Collectors.toList());
+        course.setLessons(lessons);
+        return course;
+    }
 
     @Override
     public Course convert(CourseDto courseDto) {

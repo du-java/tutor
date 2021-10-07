@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/Lessons")
+@RequestMapping("/lessons")
 public class LessonController {
 
     private final LessonFacade lessonFacade;

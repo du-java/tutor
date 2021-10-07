@@ -1,22 +1,25 @@
 package com.example.tutor.facade;
 
+import com.example.tutor.dto.CreateTutorDto;
 import com.example.tutor.dto.TutorDto;
 import com.example.tutor.services.TutorService;
 import com.example.tutor.services.converter.TutorConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class TutorFacade {
 
     private final TutorService tutorService;
     private final TutorConverter tutorConverter;
 
-    public TutorDto create(TutorDto tutorDto) {
+    public TutorDto create(CreateTutorDto tutorDto) {
         return tutorConverter.convert(tutorService.save(tutorConverter.convert(tutorDto)));
     }
 
@@ -35,6 +38,6 @@ public class TutorFacade {
     }
 
     public TutorDto update(TutorDto tutorDto) {
-        return create(tutorDto);
+        return tutorConverter.convert(tutorService.save(tutorConverter.convert(tutorDto)));
     }
 }

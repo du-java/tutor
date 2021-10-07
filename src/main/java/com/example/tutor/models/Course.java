@@ -24,9 +24,10 @@ public class Course implements Model {
     @Column(nullable = false)
     private LocalDate periodEnd;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lesson> lessons;
+
     @ManyToOne
-    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_courses_group_fk"))
+    @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_courses_group_fk"), nullable = false)
     private Group group;
 }

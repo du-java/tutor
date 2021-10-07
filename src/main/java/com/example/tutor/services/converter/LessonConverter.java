@@ -37,6 +37,7 @@ public class LessonConverter implements Converter<Lesson, LessonDto> {
                         .map(Student::getId)
                         .collect(Collectors.toList())
                 )
+                .courseId(lesson.getCourse().getId())
                 .build();
 
     }

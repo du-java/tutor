@@ -1,0 +1,12 @@
+### create tutor
+POST http://localhost:8080/lessons
+Content-Type: application/json
+
+{}
+
+###
+
+GET http://localhost:8080/lessons/1
+Accept: application/json
+
+###
