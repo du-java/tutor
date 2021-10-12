@@ -2,12 +2,10 @@ package com.example.tutor.models;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,5 +40,7 @@ public class Student extends User {
             inverseJoinColumns = {@JoinColumn(name = "lesson_id")}
     )
     @ToString.Exclude
-    private List<Lesson> visitedLessons;
+    private Set<Lesson> visitedLessons;
+
+
 }

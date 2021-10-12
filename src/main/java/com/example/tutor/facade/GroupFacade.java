@@ -1,6 +1,5 @@
 package com.example.tutor.facade;
 
-import com.example.tutor.dto.CreateGroupRequest;
 import com.example.tutor.dto.GroupDto;
 import com.example.tutor.services.GroupService;
 import com.example.tutor.services.converter.GroupConverter;
@@ -19,7 +18,7 @@ public class GroupFacade {
     private final GroupService groupService;
     private final GroupConverter groupConverter;
 
-    public GroupDto create(CreateGroupRequest groupDto) {
+    public GroupDto create(GroupDto groupDto) {
         return groupConverter.convert(groupService.save(groupConverter.convert(groupDto)));
     }
 

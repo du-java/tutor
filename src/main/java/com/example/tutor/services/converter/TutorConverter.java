@@ -23,7 +23,7 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
                 .lastname(tutorDto.getLastname())
                 .password(tutorDto.getPassword())
                 .email(tutorDto.getEmail())
-                .groups(Collections.emptyList())
+                .groups(Collections.emptySet())
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
                 .lastname(tutorDto.getLastname())
                 .groups(tutorDto.getGroupId().stream()
                         .map(groupService::findById)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toSet())
                 )
                 .password(tutorDto.getPassword())
                 .email(tutorDto.getEmail())

@@ -4,8 +4,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,6 +17,7 @@ import java.util.List;
 @Table(name = "ttr_tutors")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Tutor extends User {
+
     @Column(nullable = false)
     private String firstname;
     @Column(nullable = false)
@@ -24,5 +25,5 @@ public class Tutor extends User {
 
     @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private List<Group> groups;
+    private Set<Group> groups;
 }

@@ -1,28 +1,30 @@
 package com.example.tutor.dto;
 
+import com.example.tutor.validation.Create;
+import com.example.tutor.validation.Update;
 import lombok.Builder;
 import lombok.Value;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Value
 @Builder
 public class GroupDto implements Dto {
-    @NotNull
-    @Positive
+    @NotNull(groups = {Update.class})
+    @Positive(groups = {Update.class})
+    @Null(groups = {Create.class})
     Long id;
     @NotBlank
     @Size(min = 3, max = 100)
     String groupName;
     @NotNull
-    List<Long> students;
-    @NotNull
-    List<Long> courses;
-    @NotNull
     @Positive
     Long tutorId;
+    @Null(groups = {Create.class})
+    @NotNull(groups = {Update.class})
+    List<Long> courses;
+    @Null(groups = {Create.class})
+    @NotNull(groups = {Update.class})
+    List<Long> students;
 }

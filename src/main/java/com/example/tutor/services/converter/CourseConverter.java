@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,9 +26,9 @@ public class CourseConverter implements Converter<Course, CourseDto> {
                 .periodEnd(createCourseRequest.getEnd())
                 .group(groupService.findById(createCourseRequest.getGroupId()))
                 .build();
-        final List<Lesson> lessons = lessonService.createLessons(createCourseRequest).stream()
+        final Set<Lesson> lessons = lessonService.createLessons(createCourseRequest).stream()
                 .peek(l -> l.setCourse(course))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         course.setLessons(lessons);
         return course;
     }
@@ -41,7 +42,7 @@ public class CourseConverter implements Converter<Course, CourseDto> {
                 .periodEnd(courseDto.getPeriodEnd())
                 .lessons(courseDto.getLessons().stream()
                         .map(lessonService::findById)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toSet())
                 )
                 .build();
     }

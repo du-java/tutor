@@ -23,7 +23,7 @@ public class LessonConverter implements Converter<Lesson, LessonDto> {
                 .duration(lessonDto.getDuration())
                 .students(lessonDto.getStudents().stream()
                         .map(studentService::findById)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toSet()))
                 .build();
     }
 

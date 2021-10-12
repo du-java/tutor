@@ -1,5 +1,19 @@
+PUT {{url}}/students/addLessons
+Content-Type: application/json
 
-POST http://localhost:8080/students
+{
+  "id": 1,
+  "visitedLessons": [
+    1,
+    2
+  ]
+}
+
+###
+PUT {{url}}/students/{{studentId}}/lesson/{{lessonId}}
+
+###
+POST {{url}}/students
 Content-Type: application/json
 
 {
@@ -7,7 +21,7 @@ Content-Type: application/json
   "lastname": "student2",
   "email": "student@student2.com",
   "password": "student2",
-  "login": "student2",
   "groupId": 1,
   "price": 2.45
 }
+###

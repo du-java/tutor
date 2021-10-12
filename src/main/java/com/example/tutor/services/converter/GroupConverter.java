@@ -1,16 +1,17 @@
 package com.example.tutor.services.converter;
 
-import com.example.tutor.dto.CreateGroupRequest;
 import com.example.tutor.dto.GroupDto;
 import com.example.tutor.models.Course;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Student;
+import com.example.tutor.services.CourseService;
+import com.example.tutor.services.ListFiller;
 import com.example.tutor.services.StudentService;
 import com.example.tutor.services.TutorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -18,30 +19,25 @@ import java.util.stream.Collectors;
 public class GroupConverter implements Converter<Group, GroupDto> {
     private final TutorService tutorService;
     private final StudentService studentService;
-
-    public Group convert(CreateGroupRequest groupDto) {
-        return Group.builder()
-                .groupName(groupDto.getGroupName())
-                .tutor(tutorService.findById(groupDto.getTutorId()))
-                .courses(Collections.emptyList())
-                .students(Collections.emptyList())
-                .build();
-    }
+    private final CourseService courseService;
+    private final ListFiller listFiller;
 
     @Override
     public Group convert(GroupDto groupDto) {
+        final List<Long> courses = listFiller.ifNullGetEmptyList(groupDto.getCourses());
+        final List<Long> students = listFiller.ifNullGetEmptyList(groupDto.getStudents());
+
         return Group.builder()
                 .groupName(groupDto.getGroupName())
                 .tutor(tutorService.findById(groupDto.getTutorId()))
-                .students(groupDto.getStudents().stream()
+                .students(students.stream()
                         .map(studentService::findById)
                         .collect(Collectors.toList())
                 )
-// todo: check
-//                .courses(groupDto.getCourses().stream()
-//                        .map(courseService::findById)
-//                        .collect(Collectors.toList())
-//                )
+                .courses(courses.stream()
+                        .map(courseService::findById)
+                        .collect(Collectors.toSet())
+                )
                 .build();
     }
 

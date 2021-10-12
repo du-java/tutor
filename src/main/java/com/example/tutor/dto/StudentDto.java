@@ -1,35 +1,39 @@
 package com.example.tutor.dto;
 
+import com.example.tutor.validation.AddLessonsToStudent;
+import com.example.tutor.validation.Create;
+import com.example.tutor.validation.Update;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Value;
 
-import com.fasterxml.jackson.annotation.*;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Value
 @Builder
 public class StudentDto implements Dto {
-    @NotNull
-    @Positive
+    @NotNull(groups = {Update.class, AddLessonsToStudent.class})
+    @Positive(groups = {Update.class, AddLessonsToStudent.class})
+    @Null(groups = {Create.class})
     Long id;
     @NotBlank
-    String lastname;
-    @NotBlank
     String firstname;
-    @NotNull
-    Long groupId;
-    BigDecimal price;
-    List<Long> visitedLessons;
+    @NotBlank
+    String lastname;
     @Email
     @NotNull
     String email;
     @NotBlank
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
+    @NotNull
+    Long groupId;
+    @NotNull
+    @Positive
+    BigDecimal price;
+    @Null(groups = {Create.class})
+    @NotNull(groups = {Update.class, AddLessonsToStudent.class})
+    List<Long> visitedLessons;
 }

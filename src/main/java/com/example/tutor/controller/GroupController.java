@@ -1,15 +1,16 @@
 package com.example.tutor.controller;
 
-import com.example.tutor.dto.CreateGroupRequest;
 import com.example.tutor.dto.GroupDto;
 import com.example.tutor.facade.GroupFacade;
+import com.example.tutor.validation.Create;
+import com.example.tutor.validation.Update;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -20,7 +21,7 @@ public class GroupController {
     private final GroupFacade groupFacade;
 
     @PostMapping
-    public ResponseEntity<GroupDto> create(@Valid @RequestBody CreateGroupRequest groupDto) {
+    public ResponseEntity<GroupDto> create(@Validated(Create.class) @RequestBody GroupDto groupDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(groupFacade.create(groupDto));
     }
 
@@ -41,7 +42,7 @@ public class GroupController {
     }
 
     @PutMapping
-    public ResponseEntity<GroupDto> update(@Valid @RequestBody GroupDto groupDto) {
+    public ResponseEntity<GroupDto> update(@Validated(Update.class) @RequestBody GroupDto groupDto) {
         return ResponseEntity.accepted().body(groupFacade.update(groupDto));
     }
 }
