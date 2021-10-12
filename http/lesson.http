@@ -1,3 +1,11 @@
+POST http://localhost:8080/lessons
+Content-Type: application/json
+
+{
+
+}
+
+###
 ### create tutor
 GET http://localhost:8080/lessons
 Accept: application/json

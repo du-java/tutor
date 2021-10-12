@@ -1,5 +1,6 @@
 package com.example.tutor.controller;
 
+import com.example.tutor.dto.CreateStudentDto;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class StudentController {
     private final StudentFacade studentFacade;
 
     @PostMapping
-    public ResponseEntity<StudentDto> create(@Valid @RequestBody StudentDto studentDto) {
+    public ResponseEntity<StudentDto> create(@Valid @RequestBody CreateStudentDto studentDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(studentFacade.create(studentDto));
     }
 

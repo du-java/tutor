@@ -1,5 +1,6 @@
 package com.example.tutor.facade;
 
+import com.example.tutor.dto.CreateStudentDto;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.services.StudentService;
 import com.example.tutor.services.converter.StudentConverter;
@@ -18,7 +19,7 @@ public class StudentFacade {
     private final StudentService studentService;
     private final StudentConverter studentConverter;
 
-    public StudentDto create(StudentDto studentDto) {
+    public StudentDto create(CreateStudentDto studentDto) {
         return studentConverter.convert(studentService.save(studentConverter.convert(studentDto)));
     }
 
@@ -37,6 +38,6 @@ public class StudentFacade {
     }
 
     public StudentDto update(StudentDto studentDto) {
-        return create(studentDto);
+        return studentConverter.convert(studentService.save(studentConverter.convert(studentDto)));
     }
 }

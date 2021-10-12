@@ -3,10 +3,11 @@ POST http://localhost:8080/tutors
 Content-Type: application/json
 
 {
-  "firstname": "tutor1",
-  "lastname": "tutor1",
-  "email": "tutor1@tutor1.com",
-  "password": "tutor1"
+  "firstname": "tutor2",
+  "lastname": "tutor2",
+  "email": "tutor1@tutor2.com",
+  "password": "tutor2",
+  "login": "tutor2"
 }
 
 ###
@@ -15,3 +16,6 @@ GET http://localhost:8080/tutors/1
 Accept: application/json
 
 ###
+DELETE http://localhost:8080/tutors/1
+###
+GET http://localhost:8080/tutors

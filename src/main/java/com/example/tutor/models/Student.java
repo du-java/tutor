@@ -29,7 +29,7 @@ public class Student extends User {
     @JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "ttr_students_group_fk"))
     private Group group;
 
-    @Column(nullable = false)
+    @Column
     private BigDecimal price;
 
     @ManyToMany(cascade = {

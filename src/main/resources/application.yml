@@ -18,6 +18,7 @@ spring:
         default_schema: ${db-schema-name}
     hibernate:
       ddl-auto: validate
+    generate-ddl: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
