@@ -1,5 +1,6 @@
 package com.example.tutor.controller;
 
+import com.example.tutor.dto.PriceByPeriod;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.facade.StudentFacade;
 import com.example.tutor.validation.AddLessonsToStudent;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -55,5 +57,9 @@ public class StudentController {
     @PutMapping("/{studentId}/lesson/{lessonId}")
     public ResponseEntity<StudentDto> setVisitedLesson(@PathVariable Long studentId, @PathVariable Long lessonId) {
         return ResponseEntity.accepted().body(studentFacade.setVisitedLesson(studentId, lessonId));
+    }
+    @PostMapping("/getPriceByLessons")
+    public ResponseEntity<BigDecimal> getPriceByLessons(@RequestBody PriceByPeriod priceByPeriod){
+        return ResponseEntity.ok(studentFacade.getPriceByLessons(priceByPeriod));
     }
 }

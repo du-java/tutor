@@ -10,6 +10,16 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:8080/students/getPriceByLessons
+Content-Type: application/json
+
+{
+"id":1,
+"startPeriod":
+}
+
+
+###
 PUT {{url}}/students/{{studentId}}/lesson/{{lessonId}}
 
 ###
@@ -24,4 +34,5 @@ Content-Type: application/json
   "groupId": 1,
   "price": 2.45
 }
+
 ###

@@ -2,6 +2,7 @@ package com.example.tutor.services;
 
 import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Group;
+import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
 import com.example.tutor.repositories.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class StudentService {
     private final StudentRepository studentRepository;
 
     public Student findById(Long id) {
-return studentRepository.findById(id).orElseThrow(()->new NotFoundException(id,"student"));
+        return studentRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "student"));
     }
 
     public List<Student> findAll() {
@@ -42,4 +43,5 @@ return studentRepository.findById(id).orElseThrow(()->new NotFoundException(id,"
     public Student save(Student student) {
         return studentRepository.save(student);
     }
+
 }

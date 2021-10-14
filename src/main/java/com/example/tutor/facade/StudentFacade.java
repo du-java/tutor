@@ -1,5 +1,6 @@
 package com.example.tutor.facade;
 
+import com.example.tutor.dto.PriceByPeriod;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
@@ -10,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,5 +61,23 @@ public class StudentFacade {
                 .collect(Collectors.toList());
         student.getVisitedLessons().addAll(lessons);
         return studentConverter.convert(studentService.update(student));
+    }
+
+    public BigDecimal getPriceByLessons(PriceByPeriod priceByPeriod) {
+        Student student = studentService.findById(priceByPeriod.getStudentId());
+        Set<Lesson> visitedLessons = student.getVisitedLessons();
+        Set<Lesson> lessonsForPay = new HashSet<>();
+        for (Lesson visitedLesson : visitedLessons) {
+            if (visitedLesson.getStart().isBefore(priceByPeriod.getEndPeriod())
+                    && (visitedLesson.getStart().isAfter(priceByPeriod.getStartPeriod()))) {
+                lessonsForPay.add(visitedLesson);
+            }
+        }
+        BigDecimal forPay = new BigDecimal(0);
+        if (lessonsForPay.size() == 0) {
+            return forPay;
+        }
+        forPay = new BigDecimal(lessonsForPay.size());
+        return forPay.multiply(student.getPrice());
     }
 }
