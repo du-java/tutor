@@ -1,7 +1,7 @@
 package com.example.tutor.services.converter;
 
 import com.example.tutor.dto.CourseDto;
-import com.example.tutor.dto.CreateCourseRequest;
+import com.example.tutor.request.CreateCourseRequest;
 import com.example.tutor.models.Course;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.services.GroupService;
@@ -9,7 +9,6 @@ import com.example.tutor.services.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

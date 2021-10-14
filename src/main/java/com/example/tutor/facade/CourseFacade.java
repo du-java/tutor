@@ -1,7 +1,7 @@
 package com.example.tutor.facade;
 
 import com.example.tutor.dto.CourseDto;
-import com.example.tutor.dto.CreateCourseRequest;
+import com.example.tutor.request.CreateCourseRequest;
 import com.example.tutor.models.Course;
 import com.example.tutor.services.CourseService;
 import com.example.tutor.services.converter.CourseConverter;

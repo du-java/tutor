@@ -8,3 +8,12 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:8080/groups/addStudents
+Content-Type: application/json
+
+{
+  "id": 1,
+  "students": [
+  7,8
+  ]
+}

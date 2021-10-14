@@ -1,8 +1,9 @@
 package com.example.tutor.controller;
 
-import com.example.tutor.dto.PriceByPeriod;
+import com.example.tutor.request.PriceByPeriod;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.facade.StudentFacade;
+import com.example.tutor.respons.PayByLessonsResponse;
 import com.example.tutor.validation.AddLessonsToStudent;
 import com.example.tutor.validation.Create;
 import com.example.tutor.validation.Update;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -59,7 +60,7 @@ public class StudentController {
         return ResponseEntity.accepted().body(studentFacade.setVisitedLesson(studentId, lessonId));
     }
     @PostMapping("/getPriceByLessons")
-    public ResponseEntity<BigDecimal> getPriceByLessons(@RequestBody PriceByPeriod priceByPeriod){
+    public ResponseEntity<PayByLessonsResponse> getPriceByLessons(@Valid @RequestBody PriceByPeriod priceByPeriod){
         return ResponseEntity.ok(studentFacade.getPriceByLessons(priceByPeriod));
     }
 }

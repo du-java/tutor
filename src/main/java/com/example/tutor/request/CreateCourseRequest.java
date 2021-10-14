@@ -1,5 +1,6 @@
-package com.example.tutor.dto;
+package com.example.tutor.request;
 
+import com.example.tutor.dto.Dto;
 import lombok.Builder;
 import lombok.Value;
 

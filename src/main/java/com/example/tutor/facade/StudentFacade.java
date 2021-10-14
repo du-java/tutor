@@ -1,9 +1,10 @@
 package com.example.tutor.facade;
 
-import com.example.tutor.dto.PriceByPeriod;
+import com.example.tutor.request.PriceByPeriod;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
+import com.example.tutor.respons.PayByLessonsResponse;
 import com.example.tutor.services.LessonService;
 import com.example.tutor.services.StudentService;
 import com.example.tutor.services.converter.StudentConverter;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -63,21 +63,26 @@ public class StudentFacade {
         return studentConverter.convert(studentService.update(student));
     }
 
-    public BigDecimal getPriceByLessons(PriceByPeriod priceByPeriod) {
+    public PayByLessonsResponse getPriceByLessons(PriceByPeriod priceByPeriod) {
+
         Student student = studentService.findById(priceByPeriod.getStudentId());
-        Set<Lesson> visitedLessons = student.getVisitedLessons();
-        Set<Lesson> lessonsForPay = new HashSet<>();
-        for (Lesson visitedLesson : visitedLessons) {
-            if (visitedLesson.getStart().isBefore(priceByPeriod.getEndPeriod())
-                    && (visitedLesson.getStart().isAfter(priceByPeriod.getStartPeriod()))) {
-                lessonsForPay.add(visitedLesson);
-            }
-        }
-        BigDecimal forPay = new BigDecimal(0);
-        if (lessonsForPay.size() == 0) {
-            return forPay;
-        }
-        forPay = new BigDecimal(lessonsForPay.size());
-        return forPay.multiply(student.getPrice());
+        List<Long> visitedLessons = student.getVisitedLessons().stream()
+                .filter(visitedLesson -> isBetween(priceByPeriod, visitedLesson))
+                .map(Lesson::getId)
+                .collect(Collectors.toList());
+       return PayByLessonsResponse.builder()
+                .startPeriod(priceByPeriod.getStartPeriod())
+                .endPeriod(priceByPeriod.getEndPeriod())
+                .costByPeriod(student.getPrice().multiply(BigDecimal.valueOf(visitedLessons.size())))
+                .studentId(priceByPeriod.getStudentId())
+                .lessonsForPay(visitedLessons)
+                .build();
+    }
+
+    private boolean isBetween(PriceByPeriod priceByPeriod, Lesson visitedLesson) {
+        return visitedLesson.getStart().toLocalDate().equals(priceByPeriod.getStartPeriod().toLocalDate())
+                || visitedLesson.getStart().toLocalDate().equals(priceByPeriod.getEndPeriod().toLocalDate())
+                || (visitedLesson.getStart().isBefore(priceByPeriod.getEndPeriod())
+                && (visitedLesson.getStart().isAfter(priceByPeriod.getStartPeriod())));
     }
 }

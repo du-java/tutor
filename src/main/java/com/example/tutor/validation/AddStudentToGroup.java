@@ -1,4 +1,4 @@
 package com.example.tutor.validation;
 
-public interface AddLessonsToStudent {
+public interface AddStudentToGroup {
 }

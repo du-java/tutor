@@ -1,14 +1,14 @@
 package com.example.tutor.services.converter;
 
-import com.example.tutor.dto.CreateTutorDto;
 import com.example.tutor.dto.TutorDto;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Tutor;
 import com.example.tutor.services.GroupService;
+import com.example.tutor.services.ListFiller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,24 +16,16 @@ import java.util.stream.Collectors;
 public class TutorConverter implements Converter<Tutor, TutorDto> {
 
     private final GroupService groupService;
-
-    public Tutor convert(CreateTutorDto tutorDto) {
-        return Tutor.builder()
-                .firstname(tutorDto.getFirstname())
-                .lastname(tutorDto.getLastname())
-                .password(tutorDto.getPassword())
-                .email(tutorDto.getEmail())
-                .groups(Collections.emptySet())
-                .build();
-    }
+    private final ListFiller listFiller;
 
     @Override
     public Tutor convert(TutorDto tutorDto) {
+        final List<Long> groupIds = listFiller.ifNullGetEmptyList(tutorDto.getGroupId());
         return Tutor.builder()
                 .id(tutorDto.getId())
                 .firstname(tutorDto.getFirstname())
                 .lastname(tutorDto.getLastname())
-                .groups(tutorDto.getGroupId().stream()
+                .groups(groupIds.stream()
                         .map(groupService::findById)
                         .collect(Collectors.toSet())
                 )

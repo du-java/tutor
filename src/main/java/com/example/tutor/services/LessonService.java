@@ -1,6 +1,7 @@
 package com.example.tutor.services;
 
-import com.example.tutor.dto.CreateCourseRequest;
+import com.example.tutor.exeptions.BusyTimeException;
+import com.example.tutor.request.CreateCourseRequest;
 import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.repositories.LessonRepository;
@@ -47,8 +48,12 @@ public class LessonService {
         final List<Lesson> lessons = new ArrayList<>();
 
         while (startDay.isBefore(createCourseRequest.getEnd())) {
+            LocalDateTime startOfLesson = LocalDateTime.of(startDay, createCourseRequest.getLessonStartTime());
+            if (!isFree(startOfLesson)) {
+                throw new BusyTimeException(startOfLesson);
+            }
             final Lesson lesson = Lesson.builder()
-                    .start(LocalDateTime.of(startDay, createCourseRequest.getLessonStartTime()))
+                    .start(startOfLesson)
                     .duration(Duration.ofMinutes(createCourseRequest.getLessonDuration()))
                     .build();
             lessons.add(lesson);
@@ -66,5 +71,10 @@ public class LessonService {
 
     public Lesson save(Lesson lesson) {
         return lessonRepository.save(lesson);
+    }
+
+    private Boolean isFree(LocalDateTime localDateTime) {
+        return lessonRepository.findAll().stream()
+                .anyMatch(lesson -> localDateTime.equals(lesson.getStart()));
     }
 }

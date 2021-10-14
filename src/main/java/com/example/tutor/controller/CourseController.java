@@ -1,7 +1,7 @@
 package com.example.tutor.controller;
 
 import com.example.tutor.dto.CourseDto;
-import com.example.tutor.dto.CreateCourseRequest;
+import com.example.tutor.request.CreateCourseRequest;
 import com.example.tutor.facade.CourseFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
