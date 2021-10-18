@@ -3,6 +3,7 @@ db-schema-name: public
 spring:
   h2:
     console:
+      path: /h2
       enabled: true
   jpa:
     defer-datasource-initialization: true
