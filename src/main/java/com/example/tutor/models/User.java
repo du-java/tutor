@@ -1,15 +1,22 @@
 package com.example.tutor.models;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.*;
-
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
 @SuperBuilder
@@ -22,6 +29,4 @@ public abstract class User implements Model {
     private String email;
     @Column(nullable = false)
     private String password;
-
-
 }

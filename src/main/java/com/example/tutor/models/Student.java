@@ -1,6 +1,7 @@
 package com.example.tutor.models;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
 
 @Getter
 @Setter
@@ -44,8 +46,8 @@ public class Student extends User {
     private BigDecimal price;
 
     @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
+            CascadeType.PERSIST,
+            CascadeType.MERGE
     })
     @JoinTable(
             name = "ttr_student_lessons",
@@ -55,4 +57,20 @@ public class Student extends User {
     @ToString.Exclude
     private Set<Lesson> visitedLessons;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        Student student = (Student) o;
+        return getId() != null && Objects.equals(getId(), student.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }
