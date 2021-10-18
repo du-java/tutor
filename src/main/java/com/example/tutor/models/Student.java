@@ -44,8 +44,8 @@ public class Student extends User {
     private BigDecimal price;
 
     @ManyToMany(cascade = {
-    CascadeType.PERSIST,
-            CascadeType.MERGE
+        CascadeType.PERSIST,
+        CascadeType.MERGE
     })
     @JoinTable(
             name = "ttr_student_lessons",
