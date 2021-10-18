@@ -1,6 +1,5 @@
 package com.example.tutor.dto;
 
-import com.example.tutor.models.Course;
 import lombok.Builder;
 import lombok.Value;
 

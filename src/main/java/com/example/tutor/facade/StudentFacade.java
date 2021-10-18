@@ -70,7 +70,7 @@ public class StudentFacade {
                 .filter(visitedLesson -> isBetween(priceByPeriod, visitedLesson))
                 .map(Lesson::getId)
                 .collect(Collectors.toList());
-       return PayByLessonsResponse.builder()
+        return PayByLessonsResponse.builder()
                 .startPeriod(priceByPeriod.getStartPeriod())
                 .endPeriod(priceByPeriod.getEndPeriod())
                 .costByPeriod(student.getPrice().multiply(BigDecimal.valueOf(visitedLessons.size())))

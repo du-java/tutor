@@ -1,11 +1,26 @@
 package com.example.tutor.models;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
 
 @Getter
 @Setter
@@ -42,5 +57,20 @@ public class Student extends User {
     @ToString.Exclude
     private Set<Lesson> visitedLessons;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        Student student = (Student) o;
+        return getId() != null && Objects.equals(getId(), student.getId());
+    }
 
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }

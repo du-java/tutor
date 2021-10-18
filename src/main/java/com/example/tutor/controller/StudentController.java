@@ -59,8 +59,9 @@ public class StudentController {
     public ResponseEntity<StudentDto> setVisitedLesson(@PathVariable Long studentId, @PathVariable Long lessonId) {
         return ResponseEntity.accepted().body(studentFacade.setVisitedLesson(studentId, lessonId));
     }
+
     @PostMapping("/getPriceByLessons")
-    public ResponseEntity<PayByLessonsResponse> getPriceByLessons(@Valid @RequestBody PriceByPeriod priceByPeriod){
+    public ResponseEntity<PayByLessonsResponse> getPriceByLessons(@Valid @RequestBody PriceByPeriod priceByPeriod) {
         return ResponseEntity.ok(studentFacade.getPriceByLessons(priceByPeriod));
     }
 }
