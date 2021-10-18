@@ -2,7 +2,6 @@ package com.example.tutor.services;
 
 import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Group;
-import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
 import com.example.tutor.repositories.StudentRepository;
 import lombok.RequiredArgsConstructor;

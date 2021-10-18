@@ -1,7 +1,6 @@
 package com.example.tutor.controller;
 
 import com.example.tutor.dto.GroupDto;
-import com.example.tutor.dto.StudentDto;
 import com.example.tutor.facade.GroupFacade;
 import com.example.tutor.validation.AddStudentToGroup;
 import com.example.tutor.validation.Create;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -48,8 +46,9 @@ public class GroupController {
     public ResponseEntity<GroupDto> update(@Validated(Update.class) @RequestBody GroupDto groupDto) {
         return ResponseEntity.accepted().body(groupFacade.update(groupDto));
     }
+
     @PutMapping("/addStudents")
-    public ResponseEntity<GroupDto> addStudentsToGroup(@Validated(AddStudentToGroup.class)@RequestBody GroupDto groupDto){
+    public ResponseEntity<GroupDto> addStudentsToGroup(@Validated(AddStudentToGroup.class) @RequestBody GroupDto groupDto) {
         return ResponseEntity.accepted().body(groupFacade.addStudents(groupDto));
     }
 }
