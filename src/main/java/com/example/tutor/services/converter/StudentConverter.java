@@ -5,7 +5,6 @@ import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
 import com.example.tutor.services.GroupService;
 import com.example.tutor.services.LessonService;
-import com.example.tutor.services.utils.ListFiller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +33,7 @@ public class StudentConverter implements Converter<Student, StudentDto> {
                 .password(studentDto.getPassword())
                 .visitedLessons(visitedLessons.stream()
                         .map(lessonService::findById)
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toList())
                 )
                 .build();
     }

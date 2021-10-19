@@ -1,21 +1,20 @@
 package com.example.tutor.facade;
 
-import com.example.tutor.request.PriceByPeriod;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
+import com.example.tutor.request.PriceByPeriod;
 import com.example.tutor.respons.PayByLessonsResponse;
 import com.example.tutor.services.LessonService;
 import com.example.tutor.services.StudentService;
 import com.example.tutor.services.converter.StudentConverter;
-import com.example.tutor.services.utils.Utils;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
+import com.example.tutor.services.DateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,6 +24,7 @@ public class StudentFacade {
     private final StudentService studentService;
     private final LessonService lessonService;
     private final StudentConverter studentConverter;
+    private final DateService dateService;
 
     public StudentDto create(StudentDto studentDto) {
         return studentConverter.convert(studentService.save(studentConverter.convert(studentDto)));
@@ -65,12 +65,9 @@ public class StudentFacade {
     }
 
     public PayByLessonsResponse getPriceByLessons(PriceByPeriod priceByPeriod) {
-
         Student student = studentService.findById(priceByPeriod.getStudentId());
         List<Long> visitedLessons = student.getVisitedLessons().stream()
-                .filter(visitedLesson -> Utils.isBetween(visitedLesson.getStart(),
-                        priceByPeriod.getStartPeriod(),
-                        priceByPeriod.getEndPeriod()))
+                .filter(visitedLesson -> dateService.isBetween(visitedLesson.getStart(), priceByPeriod.getStartPeriod(), priceByPeriod.getEndPeriod()))
                 .map(Lesson::getId)
                 .collect(Collectors.toList());
         return PayByLessonsResponse.builder()

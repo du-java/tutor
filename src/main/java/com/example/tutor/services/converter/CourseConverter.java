@@ -1,16 +1,15 @@
 package com.example.tutor.services.converter;
 
 import com.example.tutor.dto.CourseDto;
-import com.example.tutor.request.CreateCourseRequest;
 import com.example.tutor.models.Course;
 import com.example.tutor.models.Lesson;
+import com.example.tutor.request.CreateCourseRequest;
 import com.example.tutor.services.GroupService;
 import com.example.tutor.services.LessonService;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -25,9 +24,9 @@ public class CourseConverter implements Converter<Course, CourseDto> {
                 .periodEnd(createCourseRequest.getEnd())
                 .group(groupService.findById(createCourseRequest.getGroupId()))
                 .build();
-        final Set<Lesson> lessons = lessonService.createLessons(createCourseRequest).stream()
+        final List<Lesson> lessons = lessonService.createLessons(createCourseRequest, course.getGroup().getTutor()).stream()
                 .peek(l -> l.setCourse(course))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
         course.setLessons(lessons);
         return course;
     }
@@ -41,7 +40,7 @@ public class CourseConverter implements Converter<Course, CourseDto> {
                 .periodEnd(courseDto.getPeriodEnd())
                 .lessons(courseDto.getLessons().stream()
                         .map(lessonService::findById)
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toList())
                 )
                 .build();
     }

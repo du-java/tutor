@@ -3,16 +3,14 @@ package com.example.tutor.facade;
 import com.example.tutor.dto.LessonDto;
 import com.example.tutor.models.Course;
 import com.example.tutor.models.Lesson;
-import com.example.tutor.services.CourseService;
 import com.example.tutor.services.LessonService;
 import com.example.tutor.services.converter.LessonConverter;
-import com.example.tutor.services.utils.Utils;
+import com.example.tutor.services.DateService;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -21,6 +19,7 @@ public class LessonFacade {
 
     private final LessonService lessonService;
     private final LessonConverter lessonConverter;
+    private final DateService dateService;
 
     public LessonDto create(LessonDto lessonDto) {
         return lessonConverter.convert(lessonService.save(lessonConverter.convert(lessonDto)));
@@ -47,7 +46,7 @@ public class LessonFacade {
     public LessonDto changeLesson(LessonDto lessonDto) {
         Lesson lesson = lessonService.findById(lessonDto.getId());
         Course course = lesson.getCourse();
-        if(!Utils.isBetween(lessonDto.getStart(),course.getPeriodStart(),course.getPeriodEnd())){
+        if (!dateService.isBetween(lessonDto.getStart(), course.getPeriodStart(), course.getPeriodEnd())) {
             throw new IllegalArgumentException("lesson date should be between course start and course end date.");
         }
         lesson.setStart(lessonDto.getStart());

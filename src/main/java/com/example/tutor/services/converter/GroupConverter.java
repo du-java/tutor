@@ -5,7 +5,6 @@ import com.example.tutor.models.Course;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Student;
 import com.example.tutor.services.CourseService;
-import com.example.tutor.services.utils.ListFiller;
 import com.example.tutor.services.StudentService;
 import com.example.tutor.services.TutorService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,7 @@ public class GroupConverter implements Converter<Group, GroupDto> {
                 )
                 .courses(courses.stream()
                         .map(courseService::findById)
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toList())
                 )
                 .build();
     }

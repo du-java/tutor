@@ -1,8 +1,8 @@
 package com.example.tutor.models;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,7 +55,7 @@ public class Student extends User {
             inverseJoinColumns = {@JoinColumn(name = "lesson_id")}
     )
     @ToString.Exclude
-    private Set<Lesson> visitedLessons;
+    private List<Lesson> visitedLessons;
 
     @Override
     public boolean equals(Object o) {

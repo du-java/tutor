@@ -1,12 +1,21 @@
 package com.example.tutor.models;
 
-import lombok.*;
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
-
-import javax.persistence.*;
-import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -26,7 +35,7 @@ public class Tutor extends User {
 
     @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private Set<Group> groups;
+    private List<Group> groups;
 
     @Override
     public boolean equals(Object o) {

@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public class Lesson implements Model {
             CascadeType.MERGE
     })
     @ToString.Exclude
-    private Set<Student> students;
+    private List<Student> students;
 
     @Override
     public boolean equals(Object o) {

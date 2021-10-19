@@ -1,5 +1,6 @@
 package com.example.tutor.controller;
 
+import com.example.tutor.exeptions.BusyTimeException;
 import com.example.tutor.exeptions.ErrorResponse;
 import com.example.tutor.exeptions.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,11 @@ public class RestHandlerExceptionResolver {
     @ExceptionHandler(NotFoundException.class)
     ResponseEntity<ErrorResponse> valid(NotFoundException ex) {
         return getResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(BusyTimeException.class)
+    ResponseEntity<ErrorResponse> valid(BusyTimeException ex) {
+        return getResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     private ResponseEntity<ErrorResponse> getResponse(HttpStatus status, String message) {
