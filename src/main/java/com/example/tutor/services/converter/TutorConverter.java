@@ -4,7 +4,7 @@ import com.example.tutor.dto.TutorDto;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Tutor;
 import com.example.tutor.services.GroupService;
-import com.example.tutor.services.ListFiller;
+import com.example.tutor.services.utils.ListFiller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -5,7 +5,7 @@ import com.example.tutor.models.Lesson;
 import com.example.tutor.models.Student;
 import com.example.tutor.services.GroupService;
 import com.example.tutor.services.LessonService;
-import com.example.tutor.services.ListFiller;
+import com.example.tutor.services.utils.ListFiller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

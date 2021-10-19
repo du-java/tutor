@@ -5,7 +5,7 @@ import com.example.tutor.models.Course;
 import com.example.tutor.models.Group;
 import com.example.tutor.models.Student;
 import com.example.tutor.services.CourseService;
-import com.example.tutor.services.ListFiller;
+import com.example.tutor.services.utils.ListFiller;
 import com.example.tutor.services.StudentService;
 import com.example.tutor.services.TutorService;
 import lombok.RequiredArgsConstructor;

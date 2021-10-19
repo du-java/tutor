@@ -1,5 +1,6 @@
 package com.example.tutor.controller;
 
+import com.example.tutor.models.Lesson;
 import com.example.tutor.request.PriceByPeriod;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.facade.StudentFacade;
@@ -64,4 +65,5 @@ public class StudentController {
     public ResponseEntity<PayByLessonsResponse> getPriceByLessons(@Valid @RequestBody PriceByPeriod priceByPeriod) {
         return ResponseEntity.ok(studentFacade.getPriceByLessons(priceByPeriod));
     }
+
 }

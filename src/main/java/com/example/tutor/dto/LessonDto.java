@@ -1,5 +1,8 @@
 package com.example.tutor.dto;
 
+import com.example.tutor.models.Course;
+import com.example.tutor.validation.ChangeLessonDate;
+import com.example.tutor.validation.Create;
 import lombok.Builder;
 import lombok.Value;
 
@@ -12,10 +15,10 @@ import java.util.List;
 @Value
 @Builder
 public class LessonDto implements Dto {
-    @NotNull
-    @Positive
+    @NotNull(groups = {ChangeLessonDate.class})
+    @Positive(groups = {ChangeLessonDate.class})
     Long id;
-    @NotNull
+    @NotNull(groups = {ChangeLessonDate.class})
     LocalDateTime start;
     @NotNull
     Duration duration;

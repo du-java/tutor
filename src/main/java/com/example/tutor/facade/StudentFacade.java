@@ -8,6 +8,7 @@ import com.example.tutor.respons.PayByLessonsResponse;
 import com.example.tutor.services.LessonService;
 import com.example.tutor.services.StudentService;
 import com.example.tutor.services.converter.StudentConverter;
+import com.example.tutor.services.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +68,9 @@ public class StudentFacade {
 
         Student student = studentService.findById(priceByPeriod.getStudentId());
         List<Long> visitedLessons = student.getVisitedLessons().stream()
-                .filter(visitedLesson -> isBetween(priceByPeriod, visitedLesson))
+                .filter(visitedLesson -> Utils.isBetween(visitedLesson.getStart(),
+                        priceByPeriod.getStartPeriod(),
+                        priceByPeriod.getEndPeriod()))
                 .map(Lesson::getId)
                 .collect(Collectors.toList());
         return PayByLessonsResponse.builder()
@@ -77,12 +80,5 @@ public class StudentFacade {
                 .studentId(priceByPeriod.getStudentId())
                 .lessonsForPay(visitedLessons)
                 .build();
-    }
-
-    private boolean isBetween(PriceByPeriod priceByPeriod, Lesson visitedLesson) {
-        return visitedLesson.getStart().toLocalDate().equals(priceByPeriod.getStartPeriod().toLocalDate())
-                || visitedLesson.getStart().toLocalDate().equals(priceByPeriod.getEndPeriod().toLocalDate())
-                || (visitedLesson.getStart().isBefore(priceByPeriod.getEndPeriod())
-                && (visitedLesson.getStart().isAfter(priceByPeriod.getStartPeriod())));
     }
 }

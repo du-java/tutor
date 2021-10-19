@@ -1,11 +1,11 @@
-POST http://localhost:8080/lessons
+POST {{url}}/lessons/lesson
 Content-Type: application/json
 
 {
-
+  "id": 1,
+  "start": "2021-09-22T11:30:00"
 }
 
-###
 ### create tutor
 GET http://localhost:8080/lessons
 Accept: application/json

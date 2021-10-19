@@ -1,8 +1,12 @@
 package com.example.tutor.facade;
 
 import com.example.tutor.dto.LessonDto;
+import com.example.tutor.models.Course;
+import com.example.tutor.models.Lesson;
+import com.example.tutor.services.CourseService;
 import com.example.tutor.services.LessonService;
 import com.example.tutor.services.converter.LessonConverter;
+import com.example.tutor.services.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,5 +42,16 @@ public class LessonFacade {
 
     public LessonDto update(LessonDto lessonDto) {
         return lessonConverter.convert(lessonService.save(lessonConverter.convert(lessonDto)));
+    }
+
+    public LessonDto changeLesson(LessonDto lessonDto) {
+        Lesson lesson = lessonService.findById(lessonDto.getId());
+        Course course = lesson.getCourse();
+        if(!Utils.isBetween(lessonDto.getStart(),course.getPeriodStart(),course.getPeriodEnd())){
+            throw new IllegalArgumentException("lesson date should be between course start and course end date.");
+        }
+        lesson.setStart(lessonDto.getStart());
+        Lesson saveLesson = lessonService.save(lesson);
+        return lessonConverter.convert(saveLesson);
     }
 }
