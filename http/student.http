@@ -4,8 +4,8 @@ Content-Type: application/json
 {
   "id": 1,
   "visitedLessons": [
-    1,
-    2
+    37,
+    38
   ]
 }
 
@@ -29,10 +29,16 @@ Content-Type: application/json
 {
   "firstname": "student2",
   "lastname": "student2",
-  "email": "student@student2.com",
+  "email": "student4@student2.com",
   "password": "student2",
-  "groupId": 1,
+  "groupId": 2,
   "price": 2.45
 }
+
+###
+GET {{url}}/students/1
+
+###
+GET {{url}}/students
 
 ###

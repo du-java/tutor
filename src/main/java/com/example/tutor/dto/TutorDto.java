@@ -22,7 +22,7 @@ public class TutorDto implements Dto {
     @NotNull
     String lastname;
     @NotNull(groups = {Update.class})
-    List<Long> groupId;
+    List<Long> groups;
     @Email
     @NotNull
     String email;

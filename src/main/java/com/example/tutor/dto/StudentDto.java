@@ -4,12 +4,15 @@ import com.example.tutor.validation.AddLessonsToStudent;
 import com.example.tutor.validation.Create;
 import com.example.tutor.validation.Update;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Value;
-
-import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Positive;
+import lombok.Builder;
+import lombok.Value;
 
 @Value
 @Builder

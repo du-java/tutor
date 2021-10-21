@@ -19,7 +19,7 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
 
     @Override
     public Tutor convert(TutorDto tutorDto) {
-        final List<Long> groupIds = listFiller.ifNullGetEmptyList(tutorDto.getGroupId());
+        final List<Long> groupIds = listFiller.ifNullGetEmptyList(tutorDto.getGroups());
         return Tutor.builder()
                 .id(tutorDto.getId())
                 .firstname(tutorDto.getFirstname())
@@ -39,7 +39,7 @@ public class TutorConverter implements Converter<Tutor, TutorDto> {
                 .id(tutor.getId())
                 .firstname(tutor.getFirstname())
                 .lastname(tutor.getLastname())
-                .groupId(tutor.getGroups().stream()
+                .groups(tutor.getGroups().stream()
                         .map(Group::getId)
                         .collect(Collectors.toList())
                 )

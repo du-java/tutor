@@ -1,8 +1,6 @@
 package com.example.tutor.dto;
 
-import com.example.tutor.models.Course;
 import com.example.tutor.validation.ChangeLessonDate;
-import com.example.tutor.validation.Create;
 import lombok.Builder;
 import lombok.Value;
 

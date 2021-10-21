@@ -1,6 +1,5 @@
 package com.example.tutor.controller;
 
-import com.example.tutor.models.Lesson;
 import com.example.tutor.request.PriceByPeriod;
 import com.example.tutor.dto.StudentDto;
 import com.example.tutor.facade.StudentFacade;
