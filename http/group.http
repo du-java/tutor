@@ -3,7 +3,7 @@ POST http://localhost:8080/groups
 Content-Type: application/json
 
 {
-  "groupName": "gr1",
+  "groupName": "gr2",
   "tutorId": 1
 }
 
@@ -12,7 +12,7 @@ PUT http://localhost:8080/groups/addStudents
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 2,
   "students": [
   7,8
   ]

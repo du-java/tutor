@@ -3,12 +3,12 @@ POST http://localhost:8080/courses
 Content-Type: application/json
 
 {
-  "start": "2021-09-01",
-  "end": "2021-12-31",
-  "lessonStartTime": "11:30:00",
-  "lessonDuration": 30,
-  "dayOfWeek": "monday",
-  "groupId": 1
+"periodStart": "2022-01-01",
+"periodEnd": "2022-02-28",
+"lessonStartTime": "11:30:00",
+"lessonDuration": 45,
+"dayOfWeek": "monday",
+"groupId": 1
 }
 
 ###
@@ -16,4 +16,18 @@ Content-Type: application/json
 GET http://localhost:8080/courses/1
 Accept: application/json
 
+### change course
+POST http://localhost:8080/courses/course
+Content-Type: application/json
+
+{
+"id": 13,
+"periodStart": "2022-01-05",
+"periodEnd": "2022-02-28",
+"lessonStartTime": "11:30:00",
+"lessonDuration": 45,
+"dayOfWeek": "friday",
+"groupId": 1
+}
 ###
+DELETE http://localhost:8080/courses/12

@@ -1,5 +1,6 @@
 package com.example.tutor.services;
 
+import com.example.tutor.dto.CourseDto;
 import com.example.tutor.exeptions.NotFoundException;
 import com.example.tutor.models.Course;
 import com.example.tutor.repositories.CourseRepository;

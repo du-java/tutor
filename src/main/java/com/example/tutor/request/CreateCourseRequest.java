@@ -14,9 +14,9 @@ import java.time.LocalTime;
 @Builder
 public class CreateCourseRequest implements Dto {
     @NotNull
-    LocalDate start;
+    LocalDate periodStart;
     @NotNull
-    LocalDate end;
+    LocalDate periodEnd;
     @NotNull
     LocalTime lessonStartTime;
     @NotNull

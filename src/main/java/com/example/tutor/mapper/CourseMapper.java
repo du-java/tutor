@@ -2,6 +2,7 @@ package com.example.tutor.mapper;
 
 import com.example.tutor.dto.CourseDto;
 import com.example.tutor.models.Course;
+import com.example.tutor.request.CreateCourseRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueMappingStrategy;
@@ -18,4 +19,7 @@ public interface CourseMapper {
 
     @Mapping(source = "groupId", target = "group")
     Course map(CourseDto dto);
+
+    @Mapping(source = "groupId", target = "group")
+    Course map(CreateCourseRequest courseRequest);
 }

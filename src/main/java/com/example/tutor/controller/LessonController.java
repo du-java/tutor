@@ -47,7 +47,7 @@ public class LessonController {
     }
 
     @PostMapping("/lesson")
-    public ResponseEntity<LessonDto> changeLesson(@Validated(ChangeLessonDate.class) @RequestBody LessonDto lessonDto) {
+    public ResponseEntity<LessonDto> changeLessonDte(@Validated(ChangeLessonDate.class) @RequestBody LessonDto lessonDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(lessonFacade.changeLesson(lessonDto));
     }
 }

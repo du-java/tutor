@@ -18,5 +18,4 @@ public abstract class LessonsMapper {
     public Lesson map(Long id) {
         return lessonService.findById(id);
     }
-
 }

@@ -6,7 +6,6 @@ import com.example.tutor.models.Lesson;
 import com.example.tutor.request.CreateCourseRequest;
 import com.example.tutor.services.GroupService;
 import com.example.tutor.services.LessonService;
-import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,17 +17,22 @@ public class CourseConverter implements Converter<Course, CourseDto> {
     private final LessonService lessonService;
     private final GroupService groupService;
 
+    public CreateCourseRequest getCourseRequest(Course course){
+return CreateCourseRequest.builder()
+        .periodStart(course.getPeriodStart())
+        .periodEnd(course.getPeriodEnd())
+        .lessonStartTime(course.getLessons().get(0).getStart().toLocalTime())
+        .dayOfWeek(course.getLessons().get(0).getStart().getDayOfWeek().toString())
+        .lessonDuration(course.getLessons().get(0).getDuration().toMinutesPart())
+        .groupId(course.getGroup().getId())
+        .build();
+    }
     public Course convert(CreateCourseRequest createCourseRequest) {
-        final Course course = Course.builder()
-                .periodStart(createCourseRequest.getStart())
-                .periodEnd(createCourseRequest.getEnd())
+        return Course.builder()
+                .periodStart(createCourseRequest.getPeriodStart())
+                .periodEnd(createCourseRequest.getPeriodEnd())
                 .group(groupService.findById(createCourseRequest.getGroupId()))
                 .build();
-        final List<Lesson> lessons = lessonService.createLessons(createCourseRequest, course.getGroup().getTutor()).stream()
-                .peek(l -> l.setCourse(course))
-                .collect(Collectors.toList());
-        course.setLessons(lessons);
-        return course;
     }
 
     @Override

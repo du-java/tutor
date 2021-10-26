@@ -43,13 +43,12 @@ public class LessonService {
     public Lesson update(Lesson lesson) {
         return lessonRepository.save(lesson);
     }
-
     public List<Lesson> createLessons(CreateCourseRequest createCourseRequest, Tutor tutor) {
         final DayOfWeek dayOfWeek = DayOfWeek.valueOf(createCourseRequest.getDayOfWeek().toUpperCase(Locale.ROOT));
-        LocalDate startDay = findStartDay(createCourseRequest.getStart(), dayOfWeek);
+        LocalDate startDay = findStartDay(createCourseRequest.getPeriodStart(), dayOfWeek);
         final List<Lesson> lessons = new ArrayList<>();
 
-        while (startDay.isBefore(createCourseRequest.getEnd())) {
+        while (startDay.isBefore(createCourseRequest.getPeriodEnd())) {
             LocalDateTime startOfLesson = LocalDateTime.of(startDay, createCourseRequest.getLessonStartTime());
 
             final List<Lesson> lessonListOfTutor = tutor.getGroups().stream()

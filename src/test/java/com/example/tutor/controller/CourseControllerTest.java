@@ -42,7 +42,7 @@ class CourseControllerTest {
     @MockBean
     private CourseRepository courseRepository;
 
-    @MockBean
+    @MockBean(name = "lesson")
     private LessonRepository lessonRepository;
 
     @Test
@@ -62,7 +62,6 @@ class CourseControllerTest {
         when(lessonRepository.save(any(Lesson.class)))
                 .thenReturn(lesson1)
                 .thenReturn(lesson2);
-
         String json = "{" +
                 "  \"start\": \"2021-09-01\"," +
                 "  \"end\": \"2021-09-15\"," +

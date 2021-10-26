@@ -29,15 +29,4 @@ public class DateService {
                 }
         );
     }
-    /*
-
-   Lesson = startLesson and endLesson (start+duration)
-
-   Lesson1 = startLesson1 and endLesson1
-   Lesson2 = startLesson2 and endLesson2
-   Lesson3 = startLesson3 and endLesson3
-
-   */
-
-
 }
